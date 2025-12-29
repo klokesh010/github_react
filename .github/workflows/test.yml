@@ -1,4 +1,30 @@
-name: My First CI Pipeline
+# name: My First CI Pipeline
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   hello:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 16
+#           cache: 'npm'
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Build project
+#         run: npm run build
+name: CI with ENV
 
 on:
   push:
@@ -6,21 +32,17 @@ on:
       - main
 
 jobs:
-  hello:
+  test-env:
     runs-on: ubuntu-latest
 
+    env:
+      APP_ENV: production
+      APP_NAME: my-app
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 16
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
+      - name: Print env variables
+        run: |
+          echo "Environment: $APP_ENV"
+          echo "App name: $APP_NAME"
