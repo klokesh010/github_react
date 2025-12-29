@@ -24,25 +24,39 @@
 
 #       - name: Build project
 #         run: npm run build
-name: CI with ENV
 
-on:
-  push:
-    branches:
-      - main
+
+# name: CI with ENV
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   test-env:
+#     runs-on: ubuntu-latest
+
+#     env:
+#       APP_ENV: production
+#       APP_NAME: my-app
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Print env variables
+#         run: |
+#           echo "Environment: $APP_ENV"
+#           echo "App name: $APP_NAME"
+
 
 jobs:
-  test-env:
+  secure-job:
     runs-on: ubuntu-latest
 
-    env:
-      APP_ENV: production
-      APP_NAME: my-app
-
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Print env variables
-        run: |
-          echo "Environment: $APP_ENV"
-          echo "App name: $APP_NAME"
+      - name: Use secret
+        run: echo "Secret is available"
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: echo "DB_PASSWORD"
